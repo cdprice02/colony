@@ -1,0 +1,51 @@
+# Extraction as a choice: the candidates are given as labels and Scout picks the one the
+# question asks for. The labels are the values that appear in the text, so the wrong ones
+# are real distractors.
+kind: extract
+questions:
+  - instructions: Which date is the deadline?
+    labels: ["2026-10-20", "2026-10-24", "2026-11-01", "2026-11-15"]
+    cases:
+      - {text: "Kickoff was 2026-10-20; the report is due 2026-11-01.", expected: "2026-11-01"}
+      - {text: "Submit by 2026-10-24. The next review is 2026-11-15.", expected: "2026-10-24"}
+      - {text: "We started on 2026-10-24 and must finish no later than 2026-11-15.", expected: "2026-11-15"}
+      - {text: "Due 2026-10-20, though the team meets again 2026-11-01.", expected: "2026-10-20"}
+      - {text: "Last updated 2026-11-01. Deadline: 2026-10-24.", expected: "2026-10-24"}
+      - {text: "Registration opens 2026-10-20 and closes 2026-11-15.", expected: "2026-11-15"}
+      - {text: "The renewal must be filed by 2026-11-01; the old card expired 2026-10-20.", expected: "2026-11-01"}
+      - {text: "Drafts on 2026-11-15 are too late; everything is due on 2026-10-24.", expected: "2026-10-24"}
+  - instructions: >-
+      Which machine does this command run on? clover is the Pi 4 server; linden is the
+      Windows PC with the graphics card; the Mac is the laptop.
+    labels: ["clover", "linden", "the Mac"]
+    cases:
+      - {text: "ssh keeper@clover sudo systemctl restart k3s", expected: "clover"}
+      - {text: "On the PC, in PowerShell: Restart-Service Ollama", expected: "linden"}
+      - {text: "From this Mac: kubectl --context clover get nodes", expected: "the Mac"}
+      - {text: "ssh linden 'ollama ps'", expected: "linden"}
+      - {text: "darwin-rebuild switch on the laptop applies the nix config", expected: "the Mac"}
+      - {text: "Run journalctl -u k3s on the Pi 4", expected: "clover"}
+      - {text: "helmfile apply, run locally from the Mac against clover", expected: "the Mac"}
+      - {text: "Open Task Scheduler on the Windows box and enable the Ollama task", expected: "linden"}
+  - instructions: Who is asked to do the task?
+    labels: ["Alex", "Sam", "Jordan", "Riley"]
+    cases:
+      - {text: "Alex, can you send Sam the slides before Friday?", expected: "Alex"}
+      - {text: "Sam will review it once Jordan finishes the draft.", expected: "Jordan"}
+      - {text: "Riley asked Jordan to book the room.", expected: "Jordan"}
+      - {text: "Jordan and Riley met; action item for Sam: update the budget.", expected: "Sam"}
+      - {text: "Could Riley take the notes? Alex is out.", expected: "Riley"}
+      - {text: "Thanks Sam. Alex, please merge it after CI.", expected: "Alex"}
+      - {text: "From Jordan: Riley, please reply to the vendor today.", expected: "Riley"}
+      - {text: "Sam owns the follow-up; Alex and Riley are only informed.", expected: "Sam"}
+  - instructions: Which number is the network port?
+    labels: ["8000", "11434", "1883", "443"]
+    cases:
+      - {text: "Ollama listens on 11434 and the model is 4 GB.", expected: "11434"}
+      - {text: "The Hive serves on port 8000 behind the Funnel.", expected: "8000"}
+      - {text: "Mosquitto: 1 replica, 1883 for MQTT, 256Mi memory.", expected: "1883"}
+      - {text: "Funnel accepts 443 only; the pod has 2 containers.", expected: "443"}
+      - {text: "Point HA at mosquitto.platform:1883 with 3 retries.", expected: "1883"}
+      - {text: "curl http://100.64.0.10:11434/api/tags returned 5 models.", expected: "11434"}
+      - {text: "uvicorn on 0.0.0.0:8000, 4 workers.", expected: "8000"}
+      - {text: "TLS terminates at 443; renewals every 90 days.", expected: "443"}

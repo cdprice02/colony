@@ -1,0 +1,61 @@
+# Which Rung a task needs: Waggle's question. The answers are judgments (Claude's, to be
+# checked by the Keeper), so this kind is evidence, never passed or failed in this step.
+kind: rung
+scored: false
+questions:
+  - instructions: &rules >-
+      Which model should do this task? Rules, in order. local: only if the whole answer is
+      one word picked from a given list or yes/no; writing, editing, summarizing or running
+      anything is never local. haiku: short routine work with clear steps, one file or one
+      message. sonnet: coding or writing across several steps or files, reviews, scripts.
+      opus: design, decisions with trade-offs, security, debugging across systems, or
+      anything where a mistake loses data. When two fit, choose the bigger one.
+    labels: ["local", "haiku", "sonnet", "opus"]
+    cases:
+      - {text: "Decide whether this log line is an error or a warning.", expected: "local"}
+      - {text: "Label this commit message as docs or code.", expected: "local"}
+      - {text: "Is this notification title about the dog? Yes or no.", expected: "local"}
+      - {text: "Pick the subsystem for this change: Platform, House or Colony.", expected: "local"}
+      - {text: "Say whether this message asks a question.", expected: "local"}
+      - {text: "Which of these four dates is the deadline in this email?", expected: "local"}
+      - {text: "Choose the language of this code snippet.", expected: "local"}
+      - {text: "Summarize this 40-line log into three bullet points.", expected: "haiku"}
+      - {text: "Rename a variable across one file and run the linter.", expected: "haiku"}
+      - {text: "Write a commit message for this small diff.", expected: "haiku"}
+      - {text: "Turn this list of meeting notes into a daily-note entry with the template.", expected: "haiku"}
+      - {text: "Look up the current version of a Helm chart and bump it in one values file.", expected: "haiku"}
+      - {text: "Reformat this YAML file and fix the lint warnings.", expected: "haiku"}
+      - {text: "Draft a short reply confirming the meeting time.", expected: "haiku"}
+      - {text: "Add a new subcommand to a Python CLI, with tests.", expected: "sonnet"}
+      - {text: "Write a runbook section for restoring the vault from backup.", expected: "sonnet"}
+      - {text: "Refactor a 300-line module into two files without changing behavior.", expected: "sonnet"}
+      - {text: "Author a Helm values file for a new service and validate it with kubeconform.", expected: "sonnet"}
+      - {text: "Build a Home Assistant automation that dedupes notifications per day.", expected: "sonnet"}
+      - {text: "Review a pull request for bugs and style.", expected: "sonnet"}
+      - {text: "Write a script that collects a week of logs and labels known patterns.", expected: "sonnet"}
+      - {text: "Port a small shell script to Python with the same output.", expected: "sonnet"}
+      - {text: "Design the architecture for renaming every machine, namespace and topic across the system.", expected: "opus"}
+      - {text: "Find why the cluster loses its storage volumes after a power cut, across logs from three machines.", expected: "opus"}
+      - {text: "Decide whether to move the vault server's OAuth to a new provider, weighing recovery and security.", expected: "opus"}
+      - {text: "Plan a migration that must not lose data, where one wrong step deletes the only copy.", expected: "opus"}
+      - {text: "Debug an intermittent race between two controllers writing the same resource.", expected: "opus"}
+      - {text: "Write an ADR choosing between three routing designs for agents on different model sizes.", expected: "opus"}
+      - {text: "Audit the security of the public Funnel endpoints and the token handling.", expected: "opus"}
+      - {text: "Interview the Keeper through a multi-round design session and record the decisions.", expected: "opus"}
+  # Held out: written after the rules above were reworded on the cases above, and never used
+  # to tune them. If these score well below the cases above, the rules are fitted, not learned.
+  - instructions: *rules
+    labels: ["local", "haiku", "sonnet", "opus"]
+    cases:
+      - {text: "Is this email from a person or an automated sender?", expected: "local"}
+      - {text: "Tag this vault note as knowledge, context or meeting.", expected: "local"}
+      - {text: "Which of these three hostnames does the error message name?", expected: "local"}
+      - {text: "Fix a typo in the README's install section.", expected: "haiku"}
+      - {text: "Add one alias to the shell config and reload it.", expected: "haiku"}
+      - {text: "Write the changelog entry for this merged pull request.", expected: "haiku"}
+      - {text: "Add retries with backoff to an HTTP client module and test them.", expected: "sonnet"}
+      - {text: "Write a dashboard card for the rack fans in Home Assistant YAML.", expected: "sonnet"}
+      - {text: "Translate the backup runbook's steps into a script with checks.", expected: "sonnet"}
+      - {text: "Choose how to store secrets so recovery needs only one key.", expected: "opus"}
+      - {text: "Work out why Home Assistant restarts every few days, from months of logs.", expected: "opus"}
+      - {text: "Plan moving every volume to new storage without losing the database.", expected: "opus"}

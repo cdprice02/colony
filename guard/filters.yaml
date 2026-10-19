@@ -1,0 +1,18 @@
+# Guard's pre-filter: events a rule covers, recorded as Informational without
+# asking the model. Each rule matches
+# when every field it sets matches the event: kind exactly, source and text by
+# regex search (HA's regex_search; the runner uses Python's re.search).
+# Kept narrow on purpose: a rule that swallows a must-push case scores as a miss
+# in the runner (guard/run.py). Revisit as history grows.
+- source: ^homeassistant\.components\.ollama$
+  why: The model host being off; a separate watch owns it.
+- source: ^homeassistant\.components\.(xbox|roku)\.coordinator$
+  text: ^Error fetching
+  why: Entertainment devices and their cloud failing a fetch; they retry. Auth failures log elsewhere.
+- source: ^homeassistant\.util\.loop$
+  text: /usr/src/homeassistant/
+  why: Blocking-call warnings in HA core itself; HA's to fix. Custom integrations still go to Guard.
+- kind: repair
+  source: ^hacs$
+  text: ^restart_required
+  why: A HACS update waiting for the next restart; the next planned restart applies it.

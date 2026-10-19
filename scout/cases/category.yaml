@@ -1,0 +1,52 @@
+# Pick one category from a closed list. Subsystems as GLOSSARY.md defines them: the Platform
+# (machines, cluster, network, backups), the House (Home Assistant: devices, rooms,
+# automations, notifications), the Colony (models, agents, the Hive, the vault's tools).
+kind: category
+questions:
+  - instructions: >-
+      Which subsystem does this change belong to? Platform: machines, the cluster, network,
+      backups, deploys. House: Home Assistant, its devices, rooms, automations and
+      notifications. Colony: local models, agents, the Hive server and its vault and search tools.
+    labels: ["Platform", "House", "Colony"]
+    cases:
+      - {text: "platform: drone-0 leaves k3s; Mosquitto to the control-plane", expected: "Platform"}
+      - {text: "colony: the Hive gains vault tools; obsidian-mcp retires", expected: "Colony"}
+      - {text: "docs: soundbar stays on through a pause; TV off held 15 s", expected: "House"}
+      - {text: "platform: backups to homelab-backups", expected: "Platform"}
+      - {text: "Dog Home reads Bluetooth presence from the AirTags", expected: "House"}
+      - {text: "Scout's classify is logged in SQLite for 90 days", expected: "Colony"}
+      - {text: "deploy: place workloads by capability, not hostname", expected: "Platform"}
+      - {text: "room lights are template lights over the area", expected: "House"}
+      - {text: "the nightly indexer embeds Drive pages through Ollama", expected: "Colony"}
+      - {text: "the Nano drives the rack fans over serial", expected: "Platform"}
+      - {text: "looks replace scenes in every room", expected: "House"}
+      - {text: "forager_move repoints wikilinks when a note moves", expected: "Colony"}
+      - {text: "Tailscale Funnel exposes one hostname per public service", expected: "Platform"}
+      - {text: "a porch motion sensor turns on the entry light after sunset", expected: "House"}
+      - {text: "renovate pins the cluster's Helm chart versions", expected: "Platform"}
+  - instructions: Which language is this code written in?
+    labels: ["python", "shell", "yaml", "javascript", "rust"]
+    cases:
+      - {text: "for f in /data/audit/*.jsonl; do rclone copy \"$f\" r2:backups/; done", expected: "shell"}
+      - {text: "def resolve(path):\n    p = (VAULT / path).resolve()\n    return p", expected: "python"}
+      - {text: "persistence:\n  vault:\n    existingClaim: obsidian-mcp-data", expected: "yaml"}
+      - {text: "const labels = items.map((i) => i.name);", expected: "javascript"}
+      - {text: "fn main() {\n    let x: u32 = 5;\n    println!(\"{x}\");\n}", expected: "rust"}
+      - {text: "kubectl --context clover -n colony get pods | grep hive", expected: "shell"}
+      - {text: "labels = [str(label).strip() for label in labels]", expected: "python"}
+      - {text: "- alias: Dog check-in\n  trigger:\n    - platform: time\n      at: \"12:00\"", expected: "yaml"}
+      - {text: "export default function Card({ title }) { return title; }", expected: "javascript"}
+      - {text: "let v: Vec<String> = args.iter().map(|a| a.to_string()).collect();", expected: "rust"}
+  - instructions: What kind of request is this?
+    labels: ["question", "instruction", "approval", "report"]
+    cases:
+      - {text: "go with your recommendations", expected: "approval"}
+      - {text: "how should i commit nix-atelier changes?", expected: "question"}
+      - {text: "move to the next step", expected: "instruction"}
+      - {text: "read and write both worked", expected: "report"}
+      - {text: "go ahead on the cutover", expected: "approval"}
+      - {text: "rename the search tools to the forager prefix", expected: "instruction"}
+      - {text: "what does the deny path return from outside the tailnet?", expected: "question"}
+      - {text: "the PC was off all morning, the wake never fired", expected: "report"}
+      - {text: "yes, merge it", expected: "approval"}
+      - {text: "add a test for the trash collision suffix", expected: "instruction"}

@@ -1,0 +1,20 @@
+  miss category: expected Colony, got ['Platform', 'Platform', 'Platform']: Scout's classify is logged in SQLite for 90 days
+  miss category: expected approval, got ['instruction', 'instruction', 'instruction']: go with your recommendations
+  miss category: expected report, got ['approval', 'approval', 'approval']: read and write both worked
+  miss category: expected approval, got ['instruction', 'instruction', 'instruction']: yes, merge it
+category   FAIL     31/35 right (89%), 0 flipped, median 373 ms  [tev1-guard, scout-v1, x3]
+extract    PASS     32/32 right (100%), 0 flipped, median 458 ms  [tev1-guard, scout-v1, x3]
+  miss rung: expected local, got ['sonnet', 'sonnet', 'sonnet']: Choose the language of this code snippet.
+  miss rung: expected haiku, got ['opus', 'opus', 'opus']: Turn this list of meeting notes into a daily-note entry with the template.
+  miss rung: expected haiku, got ['sonnet', 'sonnet', 'sonnet']: Look up the current version of a Helm chart and bump it in one values file.
+  miss rung: expected haiku, got ['sonnet', 'sonnet', 'sonnet']: Reformat this YAML file and fix the lint warnings.
+  miss rung: expected haiku, got ['local', 'local', 'local']: Draft a short reply confirming the meeting time.
+  miss rung: expected haiku, got ['local', 'local', 'local']: Fix a typo in the README's install section.
+  miss rung: expected haiku, got ['sonnet', 'sonnet', 'sonnet']: Write the changelog entry for this merged pull request.
+rung       EVIDENCE 35/42 right (83%), 0 flipped, median 372 ms  [tev1-guard, scout-v1, x3]
+  miss yes-no: expected no, got ['yes', 'yes', 'yes']: I wonder if the PC is still on
+  miss yes-no: expected yes, got ['no', 'no', 'no']: deploy: the sync container no longer inherits the /code and /index mounts
+  miss yes-no: expected no, got ['yes', 'yes', 'yes']: The backup runs every night after the vault index.
+  miss yes-no: expected no, got ['yes', 'yes', 'yes']: Retry in a couple of minutes once the PC is up.
+  miss yes-no: expected no, got ['yes', 'yes', 'yes']: Logs are kept 90 days, not backed up.
+yes-no     FAIL     30/35 right (86%), 0 flipped, median 371 ms  [tev1-guard, scout-v1, x3]

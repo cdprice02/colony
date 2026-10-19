@@ -1,0 +1,51 @@
+# Yes/no questions a Worker might hand Scout. Text from this repo's history and the House's
+# notifications where it fits, the rest written to be hard (near misses, negations).
+kind: yes-no
+questions:
+  - instructions: Is this text a question that asks for an answer?
+    labels: ["yes", "no"]
+    cases:
+      - {text: "Should we rename our search tools to make everything match now?", expected: "yes"}
+      - {text: "how should i commit nix-atelier changes?", expected: "yes"}
+      - {text: "Read and write both worked, merge it.", expected: "no"}
+      - {text: "I wonder if the PC is still on", expected: "no"}
+      - {text: "Can you check whether the backup ran last night", expected: "yes"}
+      - {text: "Go with your recommendations.", expected: "no"}
+      - {text: "What does the fan controller do when the Nano loses serial?", expected: "yes"}
+      - {text: "The dog is making noise", expected: "no"}
+      - {text: "Is there a reason the indexer skips PDFs over 50 pages?", expected: "yes"}
+      - {text: "Why not. Ship it.", expected: "no"}
+  - instructions: Does this commit message describe a bug fix?
+    labels: ["yes", "no"]
+    cases:
+      - {text: "fix(hive): the daily note append no longer leaves a double blank line", expected: "yes"}
+      - {text: "colony: prefix every Hive tool with its role (forager_*, scout_*)", expected: "no"}
+      - {text: "temp-publisher: also publish a 1-minute mean for HA", expected: "no"}
+      - {text: "deploy: the sync container no longer inherits the /code and /index mounts", expected: "yes"}
+      - {text: "docs: Guard and Scout designed (ADR 0018)", expected: "no"}
+      - {text: "guard: stop pushing the same Repair twice after a restart", expected: "yes"}
+      - {text: "platform: backups to homelab-backups (item 8, step 5)", expected: "no"}
+      - {text: "ha: the porch light timer was off by an hour after DST; use local time", expected: "yes"}
+      - {text: "feat(guard): pre-filter before Guard; step 1 passes", expected: "no"}
+  - instructions: Does this text mention a specific date or time of day?
+    labels: ["yes", "no"]
+    cases:
+      - {text: "ops: one nightly sequence in the 01:30 to 04:30 quiet window", expected: "yes"}
+      - {text: "Review the pre-filter around 2026-11-15.", expected: "yes"}
+      - {text: "Node updates overdue", expected: "no"}
+      - {text: "The backup runs every night after the vault index.", expected: "no"}
+      - {text: "Meet Tuesday at 3pm about the rack fans.", expected: "yes"}
+      - {text: "Retry in a couple of minutes once the PC is up.", expected: "no"}
+      - {text: "The deployer runs Tuesdays at 04:00.", expected: "yes"}
+      - {text: "Logs are kept 90 days, not backed up.", expected: "no"}
+  - instructions: Is the writer frustrated or complaining?
+    labels: ["yes", "no"]
+    cases:
+      - {text: "this is the third time the PC has dropped off the network this week", expected: "yes"}
+      - {text: "the sync client crashed again overnight and nobody noticed", expected: "yes"}
+      - {text: "why does the dashboard keep hiding the fan control, I asked for it to stay", expected: "yes"}
+      - {text: "i haven't used the vault naming very much, so it will be easy to transition", expected: "no"}
+      - {text: "Thanks, that looks right.", expected: "no"}
+      - {text: "ugh, helm is stuck on 3.17 again", expected: "yes"}
+      - {text: "move to the next step", expected: "no"}
+      - {text: "nothing I try gets the soundbar to stay on, this is ridiculous", expected: "yes"}

@@ -1,0 +1,26 @@
+[project]
+name = "colony"
+version = "0.1.0"
+description = "Self-hosted LLM tooling: an MCP server with semantic search, and eval-gated local classifiers"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.12"
+# The same pins as the scripts' inline metadata, which is what `uv run --script` uses.
+dependencies = [
+  "mcp==2.3.0",
+  "numpy==2.2.6",
+  "paho-mqtt==2.1.0",
+  "pillow==12.2.0",
+  "pypdfium2==5.14.0",
+  "pyyaml==6.0.3",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+pythonpath = ["hive", "guard"]
+testpaths = ["tests"]

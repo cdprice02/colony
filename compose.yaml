@@ -1,0 +1,41 @@
+# An example deployment: the server, and the indexer as a one-shot job
+# (`docker compose run --rm indexer`, from cron or a systemd timer, nightly).
+# Put TLS in front of the server; OAuth clients need PUBLIC_URL to be https.
+x-uv: &uv
+  image: ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+  env_file: .env
+  environment:
+    INDEX_DB: /index/index.db
+    AUTH_DB: /index/auth.db
+    SCOUT_DB: /index/scout.db
+    MIRROR_DIR: /index/drive
+    UV_CACHE_DIR: /index/uv-cache
+  extra_hosts:
+    - host.docker.internal:host-gateway
+
+services:
+  hive:
+    <<: *uv
+    command: uv run --script /code/server.py
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./hive:/code:ro
+      - ./data/index:/index
+      - ./data/vault:/data/vault
+      - ./data/audit:/data/audit
+    restart: unless-stopped
+
+  indexer:
+    <<: *uv
+    command: uv run --script /code/indexer.py
+    environment:
+      INDEX_DB: /index/index.db
+      MIRROR_DIR: /index/drive
+      VAULT_DIR: /vault
+      UV_CACHE_DIR: /index/uv-cache
+    volumes:
+      - ./hive:/code:ro
+      - ./data/index:/index
+      - ./data/vault:/vault:ro
+    profiles: [jobs]

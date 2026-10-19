@@ -1,0 +1,238 @@
+# Guard's history cases: drafted by collect.py from real HA logs and Repairs.
+# Label each `expect` System or Informational, with a `why`; null is skipped.
+- id: h-loop-7786df
+  kind: log
+  source: homeassistant.util.loop
+  level: WARNING
+  text: 'Detected blocking call to import_module with args (''homeassistant.components.zone.trigger'',)
+    in /usr/src/homeassistant/homeassistant/loader.py, line 1330: return importlib.import_module(f"{self.pkg_path}.{platform_name}")
+    inside the event loop; This is causing stability issues. Please create a bug report at https://github.com/home-assistant/core/issues?q=is%3Aopen+is%3Aissue'
+  expect: Informational
+  why: A core developer warning; nothing to do here.
+  seen: 1x, 2026-10-15 18:37:04 to 2026-10-15 18:37:04
+  signature: 'homeassistant.util.loop|Detected blocking call to import_module with args (''homeassistant.components.zone.trigger'',)
+    in /usr/src/homeassistant/homeassistant/loader.py, line #: return importlib.import_module(f"{self.pkg_path}.{platform_name}")
+    inside the event loop; This is causing stability issues. Please create a bug report at https://github.com/home-assistant/core/issues?q=is%#Aopen+is%#Aissue'
+- id: h-service-08f461
+  kind: log
+  source: homeassistant.helpers.service
+  level: WARNING
+  text: Referenced entities light.living_room_floor_lamp are missing or not currently available
+  expect: Informational
+  why: Entity exists (scenes, scripts, automations use it); the lamp was off at the wall or the bridge
+    blipped.
+  seen: 1x, 2026-10-15 23:15:00 to 2026-10-15 23:15:00
+  signature: homeassistant.helpers.service|Referenced entities light.living_room_floor_lamp are missing
+    or not currently available
+- id: h-coordinator-3291f6
+  kind: log
+  source: homeassistant.components.roku.coordinator
+  level: ERROR
+  text: 'Error fetching roku data: Invalid response from API: Timeout occurred while connecting to device'
+  expect: Informational
+  why: The TV was off or slow to answer; recovers.
+  seen: 1x, 2026-10-15 23:36:06 to 2026-10-15 23:36:06
+  signature: 'homeassistant.components.roku.coordinator|Error fetching roku data: Invalid response from
+    API: Timeout occurred while connecting to device'
+- id: h-service-893474
+  kind: log
+  source: homeassistant.helpers.service
+  level: WARNING
+  text: Referenced entities light.living_room_lamp are missing or not currently available
+  expect: Informational
+  why: Entity exists (scenes, scripts, automations use it); the lamp was off at the wall or the bridge
+    blipped.
+  seen: 5x, 2026-10-15 23:45:00 to 2026-10-16 09:33:49
+  signature: homeassistant.helpers.service|Referenced entities light.living_room_lamp are missing or not
+    currently available
+- id: h-service-e03edf
+  kind: log
+  source: homeassistant.helpers.service
+  level: WARNING
+  text: Referenced entities light.bedroom_lamp are missing or not currently available
+  expect: Informational
+  why: Entity exists (scenes, scripts, automations use it); the lamp was off at the wall or the bridge
+    blipped.
+  seen: 1x, 2026-10-16 00:04:09 to 2026-10-16 00:04:09
+  signature: homeassistant.helpers.service|Referenced entities light.bedroom_lamp are missing or not currently
+    available
+- id: h-service-c5a405
+  kind: log
+  source: homeassistant.helpers.service
+  level: WARNING
+  text: Referenced entities light.bedroom_lights are missing or not currently available
+  expect: Informational
+  why: Entity exists (scenes, scripts, automations use it); the lamp was off at the wall or the bridge
+    blipped.
+  seen: 2x, 2026-10-16 00:04:09 to 2026-10-16 07:45:00
+  signature: homeassistant.helpers.service|Referenced entities light.bedroom_lights are missing or not
+    currently available
+- id: h-service-b9b3fb
+  kind: log
+  source: homeassistant.helpers.service
+  level: WARNING
+  text: Referenced entities light.bedroom_lamp_2 are missing or not currently available
+  expect: Informational
+  why: Entity exists (scenes, scripts, automations use it); the lamp was off at the wall or the bridge
+    blipped.
+  seen: 1x, 2026-10-16 00:04:09 to 2026-10-16 00:04:09
+  signature: homeassistant.helpers.service|Referenced entities light.bedroom_lamp_# are missing or not
+    currently available
+- id: h-service-639941
+  kind: log
+  source: homeassistant.helpers.service
+  level: WARNING
+  text: Referenced entities light.office_lights are missing or not currently available
+  expect: Informational
+  why: Entity exists (scenes, scripts, automations use it); the lamp was off at the wall or the bridge
+    blipped.
+  seen: 1x, 2026-10-16 00:04:09 to 2026-10-16 00:04:09
+  signature: homeassistant.helpers.service|Referenced entities light.office_lights are missing or not
+    currently available
+- id: h-service-967d7e
+  kind: log
+  source: homeassistant.helpers.service
+  level: WARNING
+  text: Referenced entities light.office_desk_lamp are missing or not currently available
+  expect: Informational
+  why: Entity exists (scenes, scripts, automations use it); the lamp was off at the wall or the bridge
+    blipped.
+  seen: 1x, 2026-10-16 00:04:09 to 2026-10-16 00:04:09
+  signature: homeassistant.helpers.service|Referenced entities light.office_desk_lamp are missing or not
+    currently available
+- id: h-service-d36682
+  kind: log
+  source: homeassistant.helpers.service
+  level: WARNING
+  text: Referenced entities light.bedroom_lamp, light.bedroom_lamp_2, light.living_room_lamp, light.office_desk_lamp
+    are missing or not currently available
+  expect: Informational
+  why: Entity exists (scenes, scripts, automations use it); the lamp was off at the wall or the bridge
+    blipped.
+  seen: 1x, 2026-10-16 00:04:09 to 2026-10-16 00:04:09
+  signature: homeassistant.helpers.service|Referenced entities light.bedroom_lamp, light.bedroom_lamp_#,
+    light.living_room_lamp, light.office_desk_lamp are missing or not currently available
+- id: h-service-edbebf
+  kind: log
+  source: homeassistant.helpers.service
+  level: WARNING
+  text: Referenced entities light.home_lights are missing or not currently available
+  expect: Informational
+  why: Entity exists (scenes, scripts, automations use it); the lamp was off at the wall or the bridge
+    blipped.
+  seen: 5x, 2026-10-16 00:04:23 to 2026-10-16 00:04:29
+  signature: homeassistant.helpers.service|Referenced entities light.home_lights are missing or not currently
+    available
+- id: h-connection-8cad22
+  kind: log
+  source: homeassistant.components.websocket_api.http.connection
+  level: WARNING
+  text: '[140000000001] owner from fe80::1 (Home Assistant/2026.9.3 (io.robbie.HomeAssistant; build:2026.3126;
+    iOS 27.0.1)): Disconnected: Received error message during command phase: Received frame with non-zero
+    reserved bits'
+  expect: Informational
+  why: The phone app dropped its websocket; it reconnects.
+  seen: 1x, 2026-10-16 09:34:54 to 2026-10-16 09:34:54
+  signature: 'homeassistant.components.websocket_api.http.connection|[#] owner from fe#::# (Home Assistant/#.#.#
+    (io.robbie.HomeAssistant; build:#.#; iOS #.#.#)): Disconnected: Received error message during command
+    phase: Received frame with non-zero reserved bits'
+- id: h-lovelace-00e8d8
+  kind: repair
+  source: lovelace
+  level: ''
+  text: yaml_mode_deprecated
+  expect: System
+  why: This house runs on YAML dashboards; a migration is needed before the mode is removed.
+  seen: 1x, 2026-09-14 15:39:23 to 2026-09-14 15:39:23
+  signature: lovelace|yaml_mode_deprecated
+- id: h-hacs-22ed7b
+  kind: repair
+  source: hacs
+  level: ''
+  text: restart_required_932615779_tags/2026.9.2
+  expect: Informational
+  why: A HACS update waits for the next restart; the next planned restart applies it.
+  seen: 1x, 2026-09-14 15:52:04 to 2026-09-14 15:52:04
+  signature: hacs|restart_required_#_tags/#.#.#
+- id: h-loader-102e62
+  kind: log
+  source: homeassistant.loader
+  level: WARNING
+  text: We found a custom integration hacs which has not been tested by Home Assistant. This component
+    might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+  expect: Informational
+  why: Logged at every start for every custom integration.
+  seen: 2x, 2026-10-17 12:55:50 to 2026-10-17 16:21:35
+  signature: homeassistant.loader|We found a custom integration hacs which has not been tested by Home
+    Assistant. This component might cause stability problems, be sure to disable it if you experience
+    issues with Home Assistant
+- id: h-loader-2528d5
+  kind: log
+  source: homeassistant.loader
+  level: WARNING
+  text: We found a custom integration findmy which has not been tested by Home Assistant. This component
+    might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+  expect: Informational
+  why: Logged at every start for every custom integration.
+  seen: 2x, 2026-10-17 12:55:50 to 2026-10-17 16:21:35
+  signature: homeassistant.loader|We found a custom integration findmy which has not been tested by Home
+    Assistant. This component might cause stability problems, be sure to disable it if you experience
+    issues with Home Assistant
+- id: h-warnings-856c48
+  kind: log
+  source: py.warnings
+  level: WARNING
+  text: '/usr/local/lib/python3.14/site-packages/rich/segment.py:547: SyntaxWarning: ''return'' in a ''finally''
+    block'
+  expect: Informational
+  why: A library's SyntaxWarning under Python 3.14.
+  seen: 2x, 2026-10-17 12:56:03 to 2026-10-17 16:21:47
+  signature: 'py.warnings|/usr/local/lib/python#.#/site-packages/rich/segment.py:#: SyntaxWarning: ''return''
+    in a ''finally'' block'
+- id: h-entity-d722a3
+  kind: log
+  source: homeassistant.components.device_tracker.entity
+  level: WARNING
+  text: custom_components.findmy.device_tracker::FindMyDeviceTracker is overriding the deprecated battery_level
+    property on a subclass of BaseTrackerEntity, this will be unsupported from Home Assistant 2027.7,
+    please report it to the custom integration author
+  expect: Informational
+  why: findmy's author to fix before 2027.7; Renovate brings it.
+  seen: 2x, 2026-10-17 12:56:30 to 2026-10-17 16:22:14
+  signature: 'homeassistant.components.device_tracker.entity|custom_components.findmy.device_tracker::FindMyDeviceTracker
+    is overriding the deprecated battery_level property on a subclass of BaseTrackerEntity, this will
+    be unsupported from Home Assistant #.#, please report it to the custom integration author'
+- id: h-coordinator-2d579b
+  kind: log
+  source: homeassistant.components.xbox.coordinator
+  level: ERROR
+  text: 'Error fetching xbox data: Failed to connect to Xbox Network'
+  expect: Informational
+  why: Xbox Network unreachable for a fetch; recovers.
+  seen: 3x, 2026-10-17 12:58:41 to 2026-10-17 16:05:11
+  signature: 'homeassistant.components.xbox.coordinator|Error fetching xbox data: Failed to connect to
+    Xbox Network'
+- id: h-ban-1427ec
+  kind: log
+  source: homeassistant.components.http.ban
+  level: WARNING
+  text: 'Login attempt or request with invalid authentication from 10.42.1.15 (10.42.1.15). Requested
+    URL: ''/api/''. (curl/8.14.1)'
+  expect: System
+  why: A rejected login is worth a look until its source is known. This one was deploy tooling's dry runs.
+  seen: 3x, 2026-10-17 13:24:16 to 2026-10-17 15:03:55
+  signature: 'homeassistant.components.http.ban|Login attempt or request with invalid authentication from
+    #.#.#.# (#.#.#.#). Requested URL: ''/api/''. (curl/#.#.#)'
+- id: h-connection-fbc5b6
+  kind: log
+  source: homeassistant.components.websocket_api.http.connection
+  level: WARNING
+  text: '[140000000002] owner from 100.64.0.2 (Home Assistant/2026.9.3 (io.robbie.HomeAssistant; build:2026.3126;
+    iOS 27.0.1)): Disconnected: Received error message during command phase: Received frame with non-zero
+    reserved bits'
+  expect: Informational
+  why: The phone app's websocket dropping once; it reconnects on its own.
+  seen: 1x, 2026-10-17 15:43:39 to 2026-10-17 15:43:39
+  signature: 'homeassistant.components.websocket_api.http.connection|[#] owner from #.#.#.# (Home Assistant/#.#.#
+    (io.robbie.HomeAssistant; build:#.#; iOS #.#.#)): Disconnected: Received error message during command
+    phase: Received frame with non-zero reserved bits'

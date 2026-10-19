@@ -1,0 +1,266 @@
+# Guard's seeded cases: hard and representative events written by
+# hand, in HA's own message formats, for the integrations this house runs.
+# Real history goes in history.yaml (collect.py). Each case: id, kind (log or
+# repair), source, level, text, expect (System or Informational), why.
+# A Repair's text is its issue id: the registry event carries nothing more.
+
+# --- must-push (System) ---
+
+- id: freezer-15f-rising
+  kind: log
+  source: homeassistant.components.template
+  level: WARNING
+  text: "Freezer temperature is 15 °F and rising (was 2 °F an hour ago)"
+  expect: System
+  why: Food spoiling; the case tev1 called info in the 2026-10-11 trial.
+
+- id: recorder-db-malformed
+  kind: log
+  source: homeassistant.components.recorder.core
+  level: ERROR
+  text: "Unrecoverable sqlite3 database corruption detected: (sqlite3.DatabaseError) database disk image is malformed"
+  expect: System
+  why: History is being lost; the storage crisis began this way.
+
+- id: recorder-disk-full
+  kind: log
+  source: homeassistant.components.recorder.core
+  level: ERROR
+  text: "Error executing query: (sqlite3.OperationalError) database or disk is full"
+  expect: System
+  why: Disk full on the server.
+
+- id: backup-no-space
+  kind: log
+  source: homeassistant.components.backup
+  level: ERROR
+  text: "Backup failed: [Errno 28] No space left on device"
+  expect: System
+  why: Backups stopped, and the disk is full.
+
+- id: hue-bridge-unreachable
+  kind: log
+  source: homeassistant.config_entries
+  level: WARNING
+  text: "Config entry 'Hue Bridge' for hue integration not ready yet: Error connecting to the Hue bridge at 192.168.1.40; Retrying in background"
+  expect: System
+  why: Every light depends on the bridge.
+
+- id: matter-server-down
+  kind: log
+  source: homeassistant.components.matter
+  level: ERROR
+  text: "Failed to connect to Matter server: Cannot connect to host localhost:5580 ssl:default [Connect call failed ('127.0.0.1', 5580)]"
+  expect: System
+  why: The Matter sidecar is down; the Hub 3 and its sensors go with it.
+
+- id: mqtt-not-authorised
+  kind: log
+  source: homeassistant.components.mqtt.client
+  level: ERROR
+  text: "Failed to connect to MQTT server due to exception: Connection Refused: not authorised."
+  expect: System
+  why: Credentials wrong; node sensors stop. Pair of mqtt-one-disconnect.
+
+- id: mobile-app-push-failed
+  kind: log
+  source: homeassistant.components.mobile_app.notify
+  level: ERROR
+  text: "Internal server error, please try again later: Notification failed: device token invalid"
+  expect: System
+  why: Every push to the phone is failing.
+
+- id: reolink-login
+  kind: log
+  source: homeassistant.components.reolink
+  level: ERROR
+  text: "Error while trying to setup 192.168.1.50:443: Login error: invalid username or password"
+  expect: System
+  why: The pet camera (Person Alert, Dog Sound Alert) is down.
+
+- id: findmy-import-failed
+  kind: log
+  source: homeassistant.setup
+  level: ERROR
+  text: "Setup failed for custom integration 'findmy': Unable to import component: No module named 'findmy'"
+  expect: System
+  why: Dog Home stops working.
+
+- id: automation-config-invalid
+  kind: log
+  source: homeassistant.config
+  level: ERROR
+  text: "Invalid config for 'automation' at automations.yaml, line 212: required key 'triggers' not provided"
+  expect: System
+  why: An automation silently not loaded.
+
+- id: bluetooth-not-ready
+  kind: log
+  source: homeassistant.components.bluetooth.manager
+  level: ERROR
+  text: "hci0 (DC:A6:32:00:00:01): Failed to start Bluetooth: [org.bluez.Error.NotReady] Resource Not Ready"
+  expect: System
+  why: No Bluetooth means no Dog Home. Pair of bluetooth-scanner-restart.
+
+- id: xbox-auth-failed
+  kind: log
+  source: homeassistant.helpers.update_coordinator
+  level: ERROR
+  text: "Authentication failed while fetching xbox data: Invalid authentication"
+  expect: System
+  why: Needs re-authentication by hand.
+
+- id: http-invalid-login
+  kind: log
+  source: homeassistant.components.http.ban
+  level: WARNING
+  text: "Login attempt or request with invalid authentication from 192.168.1.23 (192.168.1.23). Requested URL: '/auth/token'. (Mozilla/5.0)"
+  expect: System
+  why: Someone, or a stale client, failing to log in; worth a look.
+
+- id: repair-integration-not-found
+  kind: repair
+  source: homeassistant
+  level: ""
+  text: integration_not_found.findmy
+  expect: System
+  why: A configured integration is missing.
+
+- id: repair-matter-server-too-old
+  kind: repair
+  source: matter
+  level: ""
+  text: server_version_version_too_old
+  expect: System
+  why: The Matter server image needs updating.
+
+- id: repair-deprecated-yaml
+  kind: repair
+  source: homeassistant
+  level: ""
+  text: deprecated_yaml_tts
+  expect: System
+  why: YAML that will stop loading in a later release.
+
+- id: repair-backup-failed
+  kind: repair
+  source: backup
+  level: ""
+  text: automatic_backup_failed_create
+  expect: System
+  why: The automatic backup failed.
+
+# --- Informational ---
+
+- id: ha-update-available
+  kind: log
+  source: homeassistant.components.version
+  level: WARNING
+  text: "A new version of Home Assistant is available: 2026.10.2"
+  expect: Informational
+  why: The benign HA update; the update window or Renovate handles it.
+
+- id: update-slow-entity
+  kind: log
+  source: homeassistant.helpers.entity
+  level: WARNING
+  text: "Update of sensor.xbox_player_status is taking over 10 seconds"
+  expect: Informational
+  why: Slow, not broken.
+
+- id: update-longer-than-interval
+  kind: log
+  source: homeassistant.helpers.entity_platform
+  level: WARNING
+  text: "Updating reolink switch took longer than the scheduled update interval 0:00:30"
+  expect: Informational
+  why: Slow, not broken.
+
+- id: startup-waiting
+  kind: log
+  source: homeassistant.bootstrap
+  level: WARNING
+  text: "Waiting on integrations to complete setup: {'reolink': <Task pending name='setup reolink'>}"
+  expect: Informational
+  why: A slow startup that finishes.
+
+- id: findmy-blocking-call
+  kind: log
+  source: homeassistant.util.loop
+  level: WARNING
+  text: "Detected blocking call to open with args ('/config/custom_components/findmy/manifest.json',) inside the event loop by custom integration 'findmy' at custom_components/findmy/__init__.py, line 41: with open(path) as f: (offender: /config/custom_components/findmy/__init__.py, line 41), please create a bug report at https://github.com/malmeloo/hass-FindMy/issues"
+  expect: Informational
+  why: A code-quality warning; it still works.
+
+- id: custom-integration-untested
+  kind: log
+  source: homeassistant.loader
+  level: WARNING
+  text: "We found a custom integration findmy which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant"
+  expect: Informational
+  why: Logged at every start for every custom integration.
+
+- id: hacs-frame-deprecated
+  kind: log
+  source: homeassistant.helpers.frame
+  level: WARNING
+  text: "Detected that custom integration 'hacs' accesses hass.helpers.event, which should be updated to import functions used from event directly at custom_components/hacs/base.py, line 512. This will stop working in Home Assistant 2027.5, please report it to the author of the 'hacs' custom integration"
+  expect: Informational
+  why: The author's to fix; months away, and Renovate brings the fix.
+
+- id: hacs-rate-limited
+  kind: log
+  source: custom_components.hacs
+  level: WARNING
+  text: "GitHub API ratelimited - 0 of 5000 remaining, resets at 14:05"
+  expect: Informational
+  why: Resets on its own.
+
+- id: ollama-unreachable
+  kind: log
+  source: homeassistant.components.ollama
+  level: ERROR
+  text: "Unexpected error talking to Ollama server: [Errno 113] Host is unreachable"
+  expect: Informational
+  why: The model host is off; a separate watch already owns that.
+  # Filtered before the model (filters.yaml); tev1 pushed it under every wording.
+
+- id: met-timeout
+  kind: log
+  source: homeassistant.components.met
+  level: ERROR
+  text: "Timeout fetching met data"
+  expect: Informational
+  why: One weather fetch timing out; the next one recovers.
+
+- id: mqtt-one-disconnect
+  kind: log
+  source: homeassistant.components.mqtt.client
+  level: WARNING
+  text: "Disconnected from MQTT server mosquitto:1883 (7)"
+  expect: Informational
+  why: Reconnects on its own. Pair of mqtt-not-authorised.
+
+- id: bluetooth-scanner-restart
+  kind: log
+  source: homeassistant.components.bluetooth.scanner
+  level: WARNING
+  text: "hci0 (DC:A6:32:00:00:01): Bluetooth scanner has gone quiet for 90s, restarting"
+  expect: Informational
+  why: Recovers itself. Pair of bluetooth-not-ready.
+
+- id: aiohttp-unclosed-session
+  kind: log
+  source: asyncio
+  level: ERROR
+  text: "Unclosed client session client_session: <aiohttp.client.ClientSession object at 0x7f8a3c2b10>"
+  expect: Informational
+  why: A leak warning from some integration; nothing to do.
+
+- id: camera-stream-400
+  kind: log
+  source: homeassistant.components.stream.worker
+  level: ERROR
+  text: "Error from stream worker: Error opening stream (HTTP_BAD_REQUEST, Server returned 400 Bad Request) rtsp://****:****@192.168.1.50:554/h264Preview_01_main"
+  expect: Informational
+  why: A live-view hiccup; detection runs on the camera, not the stream.
